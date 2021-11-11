@@ -7,16 +7,19 @@
 
   <fragment
       android:id="@+id/entryListFragment"
-      android:name="androidsamples.java.journalapp.EntryListFragment"
+      android:name="androidsamples.java.journalapp.fragment.EntryListFragment"
       android:label="fragment_entry_list"
       tools:layout="@layout/fragment_entry_list">
     <action
         android:id="@+id/addEntryAction"
         app:destination="@id/entryDetailsFragment" />
+    <action
+      android:id="@+id/infoAction"
+      app:destination="@id/infoFragment"/>
   </fragment>
   <fragment
       android:id="@+id/entryDetailsFragment"
-      android:name="androidsamples.java.journalapp.EntryDetailsFragment"
+      android:name="androidsamples.java.journalapp.fragment.EntryDetailsFragment"
       android:label="fragment_entry_details"
       tools:layout="@layout/fragment_entry_details">
     <argument
@@ -29,25 +32,27 @@
     <action
         android:id="@+id/timePickerAction"
         app:destination="@id/timePickerDialog" />
-    <argument
-        android:name="selectedYear"
-        app:argType="integer"
-        android:defaultValue="0" />
-    <argument
-        android:name="selectedMonth"
-        app:argType="integer"
-        android:defaultValue="0" />
-    <argument
-        android:name="selectedDate"
-        app:argType="integer"
-        android:defaultValue="0" />
   </fragment>
 
   <dialog
       android:id="@+id/datePickerDialog"
-      android:name="androidsamples.java.journalapp.DatePickerFragment" />
+      android:name="androidsamples.java.journalapp.fragment.DatePickerFragment" />
 
   <dialog
       android:id="@+id/timePickerDialog"
-      android:name="androidsamples.java.journalapp.TimePickerFragment" />
+      android:name="androidsamples.java.journalapp.fragment.TimePickerFragment">
+    <argument
+        android:name="startOrEndTime"
+        app:argType="integer"
+        android:defaultValue="0"
+      />
+
+
+  </dialog>
+  <fragment
+      android:id="@+id/infoFragment"
+      android:name="androidsamples.java.journalapp.fragment.InfoFragment"
+      android:label="fragment_info"
+      tools:layout="@layout/fragment_info"
+      />
 </navigation>
