@@ -34,10 +34,10 @@ I added InfoFragment to Navgraph,and button to go back from InfoFragment to Entr
 I Enabled AccessibilityChecks and tests to click buttons to check accessibility in all fragments created.
 
 ## D.
-### I Used the monkey tool for testing.Viewed the test cases and wrote the code for passing the cases 2-3 at a time. I went on to fix the test cases one by one until all my test cases passed.
+I Used the monkey tool for testing.Viewed the test cases and wrote the code for passing the cases 2-3 at a time. I went on to fix the test cases one by one until all my test cases passed.
 
 ## E.
-### I took around 65 hours to do this assignment.
+I took around 65 hours to do this assignment.
 
 ## F.
-### 9/10-Difficulty.
+9/10-Difficulty.
