@@ -7,7 +7,10 @@ a3-journalapp-dpungaliya created by GitHub Classroom
 ### -BITS ID-2018B2A70662G 
 ### -Email-f20180662@goa.bits-pilani.ac.in
 
-##C.
+## B.
+### Journal app records and shows the date, start time, and end time of each journal entry.The date and times are buttons; clicking them opens a date-picker and a time-picker
+
+## C.
 ### Task 1
 1. Add nav actions using `navigate()` method of NavigationController.
 2. Add argeuments for startTime and endTime.
