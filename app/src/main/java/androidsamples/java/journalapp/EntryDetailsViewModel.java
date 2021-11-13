@@ -1,168 +1,129 @@
 package androidsamples.java.journalapp;
 
-import java.util.UUID;
-
-import androidsamples.java.journalapp.JournalEntry;
-import androidsamples.java.journalapp.JournalRepository;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.UUID;
+
 public class EntryDetailsViewModel extends ViewModel {
 
-    private final JournalRepository repository;
+    private int mYear;
+    private int mMonth;
+    private int mDay;
+    private int mStartHour;
+    private int mStartMinute;
+    private int mEndHour;
+    private int mEndMinute;
+
+    private final JournalRepository mRepository;
     private final MutableLiveData<UUID> entryIdLiveData = new MutableLiveData<>();
-    private final MutableLiveData<String> dateLiveData= new MutableLiveData<>();
-    private final MutableLiveData<String> startTimeLiveData= new MutableLiveData<>();
-    private final MutableLiveData<String> endTimeLiveData = new MutableLiveData<>();
 
-    private String startTimeHours;
-    private String startTimeMins;
-    private String endTimeHours;
-    private String endTimeMins;
-    private String dateMonth;
-    private String dateDate;
-    private String dateYear;
-
-    private String titleTxt;
-    private String startTimeTxt;
-    private String endTimeTxt;
-    private String dateTxt;
-
-    public String getTitleTxt() {
-        return titleTxt;
+    public EntryDetailsViewModel () {
+        mRepository = JournalRepository.getInstance();
     }
 
-    public void setTitleTxt(String titleTxt) {
-        this.titleTxt = titleTxt;
+    public int getYear() {
+        return mYear;
     }
 
-    public String getStartTimeTxt() {
-        return startTimeTxt;
+    public void setYear(int year) {
+        this.mYear = year;
     }
 
-    public void setStartTimeTxt(String startTimeTxt) {
-        this.startTimeTxt = startTimeTxt;
+    public int getMonth() {
+        return mMonth;
     }
 
-    public String getEndTimeTxt() {
-        return endTimeTxt;
+    public void setMonth(int month) {
+        this.mMonth = month;
     }
 
-    public void setEndTimeTxt(String endTimeTxt) {
-        this.endTimeTxt = endTimeTxt;
+    public int getDay() {
+        return mDay;
     }
 
-    public String getDateTxt() {
-        return dateTxt;
+    public void setDay(int day) {
+        this.mDay = day;
     }
 
-    public void setDateTxt(String dateTxt) {
-        this.dateTxt = dateTxt;
+    public int getStartHour() {
+        return mStartHour;
     }
 
-    public EntryDetailsViewModel() {
-        this.repository =JournalRepository.getInstance();
+    public void setStartHour(int hour) {
+        this.mStartHour = hour;
     }
 
-    public LiveData<JournalEntry> getEntryLiveData(){
-        return Transformations.switchMap(entryIdLiveData, repository::getEntry);
+    public int getStartMinute() {
+        return mStartMinute;
     }
 
-    public LiveData<String> getDateLiveData(){
-        return dateLiveData;
+    public void setStartMinute(int minute) {
+        this.mStartMinute = minute;
     }
 
-    public LiveData<String> getStartTimeLiveData(){
-        return startTimeLiveData;
+    public int getEndHour() {
+        return mEndHour;
     }
 
-    public LiveData<String> getEndTimeLiveData(){
-        return endTimeLiveData;
+    public void setEndHour(int hour) {
+        this.mEndHour = hour;
     }
 
-    public void updateDateLiveData(){
-        dateTxt=dateDate+"/"+dateMonth+"/"+dateYear;
-        dateLiveData.setValue(dateDate+"/"+dateMonth+"/"+dateYear);
+    public int getEndMinute() {
+        return mEndMinute;
     }
 
-    public void updateStartTimeLiveData(){
-        startTimeTxt=startTimeHours+":"+startTimeMins;
-        startTimeLiveData.setValue(startTimeHours+":"+startTimeMins);
+    public void setEndMinute(int minute) {
+        this.mEndMinute = minute;
     }
 
-
-    public void updateEndTimeLiveData(){
-        endTimeTxt = endTimeHours+":"+endTimeMins;
-        endTimeLiveData.setValue(endTimeHours+":"+endTimeMins);
+    LiveData<JournalEntry> getEntryLiveData() {
+        return Transformations.switchMap(entryIdLiveData, mRepository::getEntry);
     }
 
-    public void loadEntry(UUID entryID){
-        entryIdLiveData.setValue(entryID);
+    void loadEntry(UUID entryId) {
+        entryIdLiveData.setValue(entryId);
     }
 
-    public void saveEntry(JournalEntry entry){
-        repository.update(entry);
+    void saveEntry(JournalEntry entry) {
+        mRepository.update(entry);
     }
 
-    public void deleteEntry(JournalEntry entry){
-        repository.delete(entry);
+    void deleteEntry(JournalEntry entry) {
+        mRepository.delete(entry);
     }
 
-    public String getStartTimeHours() {
-        return startTimeHours;
+    /**
+     * Generates a date string to display in entry card.
+     * @return generated date string
+     */
+    public String getFullDateString() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, MMM dd, yyyy", Locale.getDefault());
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, mYear);
+        calendar.set(Calendar.MONTH, mMonth);
+        calendar.set(Calendar.DATE, mDay);
+
+        return simpleDateFormat.format(calendar.getTime());
     }
 
-    public void setStartTimeHours(String startTimeHours) {
-        this.startTimeHours = startTimeHours;
-    }
+    /**
+     * Generates a time string to display in card.
+     * @param isStartTime type of time string (Start: true, End: false
+     * @return generated time string
+     */
+    public String getFullTimeString(boolean isStartTime) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, isStartTime ? mStartHour : mEndHour);
+        calendar.set(Calendar.MINUTE, isStartTime ? mStartMinute : mEndMinute);
 
-    public String getStartTimeMins() {
-        return startTimeMins;
-    }
-
-    public void setStartTimeMins(String startTimeMins) {
-        this.startTimeMins = startTimeMins;
-    }
-
-    public String getEndTimeHours() {
-        return endTimeHours;
-    }
-
-    public void setEndTimeHours(String endTimeHours) {
-        this.endTimeHours = endTimeHours;
-    }
-
-    public String getEndTimeMins() {
-        return endTimeMins;
-    }
-
-    public void setEndTimeMins(String endTimeMins) {
-        this.endTimeMins = endTimeMins;
-    }
-
-    public String getDateMonth() {
-        return dateMonth;
-    }
-
-    public void setDateMonth(String dateMonth) {
-        this.dateMonth = dateMonth;
-    }
-
-    public String getDateDate() {
-        return dateDate;
-    }
-
-    public void setDateDate(String dateDate) {
-        this.dateDate = dateDate;
-    }
-
-    public String getDateYear() {
-        return dateYear;
-    }
-
-    public void setDateYear(String dateYear) {
-        this.dateYear = dateYear;
+        return simpleDateFormat.format(calendar.getTime());
     }
 }

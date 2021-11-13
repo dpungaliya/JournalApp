@@ -6,43 +6,43 @@
     android:background="@color/design_default_color_secondary"
     android:orientation="vertical">
 
-  <TextView
-      android:id="@+id/txt_item_title"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:padding="2dp"
-      android:text="@string/title_label"
-      android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:weightSum="1.0">
-
     <TextView
-        android:id="@+id/txt_item_date"
+        android:id="@+id/txt_item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.6"
         android:padding="2dp"
-        android:text="@string/date"
-        android:textAllCaps="true"
-        android:textStyle="italic" />
+        android:text="@string/title_label"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-    <TextView
-        android:id="@+id/txt_item_start_time"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.2"
-        android:text="@string/start_time"
-        android:textStyle="italic" />
+        android:weightSum="1.0">
 
-    <TextView
-        android:id="@+id/txt_item_end_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.2"
-        android:text="@string/end_time"
-        android:textStyle="italic" />
-  </LinearLayout>
+        <TextView
+            android:id="@+id/txt_item_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:padding="2dp"
+            android:text="@string/date"
+            android:textAllCaps="true"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/txt_item_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:text="@string/start_time"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/txt_item_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:text="@string/end_time"
+            android:textStyle="italic" />
+    </LinearLayout>
 </LinearLayout>

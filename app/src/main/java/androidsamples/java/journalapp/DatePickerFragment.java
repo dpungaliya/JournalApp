@@ -3,50 +3,46 @@ package androidsamples.java.journalapp;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.DatePicker;
 
-import java.util.Calendar;
-import java.util.Date;
-
-import androidsamples.java.journalapp.EntryDetailsViewModel;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+
+import java.util.Calendar;
+import java.util.Objects;
 
 public class DatePickerFragment extends DialogFragment {
 
-  EntryDetailsViewModel entryDetailsViewModel;
+    private EntryDetailsViewModel mEntryDetailsViewModel;
 
-  @Override
-  public void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    entryDetailsViewModel = new ViewModelProvider(getActivity()).get(EntryDetailsViewModel.class);
-  }
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        mEntryDetailsViewModel = new ViewModelProvider(requireActivity()).get(EntryDetailsViewModel.class);
 
-  @NonNull
-  public static DatePickerFragment newInstance(Date date) {
+        int year = mEntryDetailsViewModel.getYear();
+        int month = mEntryDetailsViewModel.getMonth();
+        int day = mEntryDetailsViewModel.getDay();
 
-    return null;
-  }
+        if (year == -1 && month == -1 && day == -1) {
+            Calendar calendar = Calendar.getInstance();
+            year = calendar.get(Calendar.YEAR);
+            month = calendar.get(Calendar.MONTH);
+            day = calendar.get(Calendar.DATE);
+        }
 
-  @NonNull
-  @Override
-  public Dialog onCreateDialog(Bundle savedInstanceState) {
+        return new DatePickerDialog(requireContext(), this::onDatePicked, year, month, day);
+    }
 
-    Calendar calendar=Calendar.getInstance();
-    calendar.setTime(new Date());
+    private void onDatePicked(DatePicker datePicker, int year, int month, int day) {
+        mEntryDetailsViewModel.setYear(year);
+        mEntryDetailsViewModel.setMonth(month);
+        mEntryDetailsViewModel.setDay(day);
 
-    return new DatePickerDialog(requireContext(), (dp, y, m, d) -> {
-      String date = String.format( "%02d", d);
-      String month = String.format ("%02d", m+1);
-      String year = String.format ( "%04d", y);
-
-      entryDetailsViewModel.setDateDate(date);
-      entryDetailsViewModel.setDateMonth(month);
-      entryDetailsViewModel.setDateYear(year);
-      entryDetailsViewModel.updateDateLiveData();
-    }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
-
-  }
+        NavController navController = NavHostFragment.findNavController(this);
+        Objects.requireNonNull(navController.getPreviousBackStackEntry()).getSavedStateHandle().set("date", mEntryDetailsViewModel.getFullDateString());
+    }
 }

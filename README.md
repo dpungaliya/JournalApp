@@ -1,11 +1,13 @@
 # a3-journalapp-dpungaliya
 a3-journalapp-dpungaliya created by GitHub Classroom
 
-## A. -Project name- JournalApp 
-   -Name-Dhaval Pungaliya 
-   -BITS ID-2018B2A70662G 
-   -Email-f20180662@goa.bits-pilani.ac.in
+## A. 
+### -Project name- JournalApp 
+### -Name-Dhaval Pungaliya 
+### -BITS ID-2018B2A70662G 
+### -Email-f20180662@goa.bits-pilani.ac.in
 
+##C.
 ### Task 1
 1. Add nav actions using `navigate()` method of NavigationController.
 2. Add argeuments for startTime and endTime.
