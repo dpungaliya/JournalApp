@@ -1,11 +1,11 @@
 # a3-journalapp-dpungaliya
-### a3-journalapp-dpungaliya created by GitHub Classroom
+a3-journalapp-dpungaliya created by GitHub Classroom
 
 ## A. 
-### -Project name: JournalApp 
-### -Name:Dhaval Pungaliya 
-### -BITS ID:2018B2A70662G 
-### -Email:f20180662@goa.bits-pilani.ac.in
+ -Project name: JournalApp 
+ -Name:Dhaval Pungaliya 
+ -BITS ID:2018B2A70662G 
+ -Email:f20180662@goa.bits-pilani.ac.in
 
 ## B.
 ### Journal app records and shows the date, start time, and end time of each journal entry.The date and times are buttons; clicking them opens a date-picker and a time-picker
